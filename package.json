@@ -1,7 +1,7 @@
 {
-  "name": "agreement-center-client",
+  "name": "leaderboard-website",
   "version": "1.0.0",
-  "description": "The official Agreement Center client",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --devtool source-map --mode development",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Beastslash/agreement-center.git"
+    "url": "git+https://github.com/ScriptedReality/leaderboard-website.git"
   },
-  "author": "Christian Toney",
+  "author": "Scripted Reality",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/Beastslash/agreement-center/issues"
+    "url": "https://github.com/ScriptedReality/leaderboard-website/issues"
   },
-  "homepage": "https://github.com/Beastslash/agreement-center#readme",
+  "homepage": "https://github.com/ScriptedReality/leaderboard-website#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.18.6",

@@ -14,9 +14,6 @@ export default function App() {
       <ProgressHeader />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/authenticate" element={<AuthenticationSection />} />
-        <Route path="/agreements" element={<AgreementListPage />} />
-        <Route path="/agreements/:projectName/:agreementName" element={<AgreementPage />} />
       </Routes>
     </>
   );

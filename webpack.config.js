@@ -7,7 +7,6 @@ import webpack from "webpack";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
-require("dotenv").config({path: `${process.argv[process.argv.indexOf("--mode") + 1] === "production" ? "production" : "development"}.env`});
 
 const config = {
   mode: "development",
@@ -90,9 +89,6 @@ const config = {
     new HtmlWebpackPlugin({
       template: "public/index.html",
       // favicon: "public/favicon.png"
-    }),
-    new webpack.DefinePlugin({
-      "process.env": JSON.stringify(process.env)
     })
   ]
 };
