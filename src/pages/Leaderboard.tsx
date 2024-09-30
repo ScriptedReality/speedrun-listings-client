@@ -7,6 +7,7 @@ import { useDisclosure } from '@mantine/hooks';
 import "@mantine/core/styles.css";
 import classes from "../styles/FloatingLabelInput.module.css";
 
+
 const data: LeaderboardEntry[] = [
   {
     name: "Athena Weissnat",
@@ -188,6 +189,7 @@ const Leaderboard = () => {
     "All-time": () => true
   }
 
+
   const [opened, { open, close }] = useDisclosure(false);
   const [focused, setFocused] = useState(false);
   const [name, setName] = useState('');
@@ -243,6 +245,9 @@ const Leaderboard = () => {
         </Button>
       </Modal>
 
+  return (
+    <div className="leaderboard-container">
+      <h1 className="leaderboard-title">Leaderboard</h1>
       <section>
         {
           Object.keys(filters).map((label) => (
