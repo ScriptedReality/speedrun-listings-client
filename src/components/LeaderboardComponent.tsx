@@ -194,7 +194,7 @@ export function TableScrollArea() {
             <Table.Th>Email</Table.Th>
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
+        <Table.Tbody className={classes.body}>{rows}</Table.Tbody>
       </Table>
     </ScrollArea>
   );

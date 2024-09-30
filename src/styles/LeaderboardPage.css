@@ -1,14 +1,14 @@
 @import "@mantine/core/styles.css";
 
-.body {
-  background-color: var(--mantine-color-body);
+body {
+  background: var(--mantine-color-dark-8);
 }
 
 .leaderboard-container {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
-  background-color: var(--mantine-color-background);
+  background-color: var(--mantine-color-dark-9);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -18,5 +18,5 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: var(--mantine-color-text);
+  color: var(--mantine-color-white);
 }

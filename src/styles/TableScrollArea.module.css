@@ -1,8 +1,9 @@
 .header {
   position: sticky;
   top: 0;
-  background-color: var(--mantine-color-body);
+  background-color: var(--mantine-color-dark-9);
   transition: box-shadow 150ms ease;
+  color: white; /* Add this line to set the text color to white */
 
   &::after {
     content: "";
@@ -22,3 +23,8 @@
 .scroll-area {
   height: 80%;
 }
+
+.body {
+  color: white; /* Add this block to set the text color of table body to white */
+}
+
