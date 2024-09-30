@@ -212,7 +212,7 @@ const Leaderboard = () => {
       <Modal opened={opened} onClose={close} title="Authentication" centered>
         <TextInput
           label="Name"
-          placeholder="Aiden Jastrzembski"
+          placeholder="Austin Vandegriff"
           required
           classNames={classes}
           value={name}
