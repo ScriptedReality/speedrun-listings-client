@@ -39,7 +39,7 @@ export function TableScrollArea({entries}: {entries: LeaderboardEntry[]}) {
           <Table.Tr>
             <Table.Th>Name</Table.Th>
             <Table.Th>Score</Table.Th>
-            <Table.Th>Email</Table.Th>
+            <Table.Th>Date</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody className={classes.body}>{rows}</Table.Tbody>
