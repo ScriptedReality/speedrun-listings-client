@@ -2,6 +2,10 @@ import { LeaderboardEntry, TableScrollArea } from "../components/LeaderboardComp
 import "../styles/TableScrollArea.module.css";
 import "../styles/LeaderboardPage.css";
 import { useState } from "react";
+import { Modal, Button, TextInput } from "@mantine/core";
+import { useDisclosure } from '@mantine/hooks';
+import "@mantine/core/styles.css";
+import classes from "../styles/FloatingLabelInput.module.css";
 
 const data: LeaderboardEntry[] = [
   {
@@ -184,9 +188,61 @@ const Leaderboard = () => {
     "All-time": () => true
   }
 
+  const [opened, { open, close }] = useDisclosure(false);
+  const [focused, setFocused] = useState(false);
+  const [name, setName] = useState('');
+  const [score, setScore] = useState('');
+  const floating = name.trim().length !== 0 || focused || undefined;
+
+  const handleSubmit = () => {
+    const newEntry: LeaderboardEntry = {
+      name,
+      score: parseInt(score),
+      date: new Date(),
+    };
+    data.push(newEntry);
+    setName('');
+    setScore('');
+    close();
+  };
+
   return (
     <div className="leaderboard-container">
       <h1 className="leaderboard-title">Leaderboard</h1>
+      <Modal opened={opened} onClose={close} title="Authentication" centered>
+        <TextInput
+          label="Name"
+          placeholder="Aiden Jastrzembski"
+          required
+          classNames={classes}
+          value={name}
+          onChange={(event) => setName(event.currentTarget.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          mt="md"
+          autoComplete="nope"
+          data-floating={floating}
+          labelProps={{ 'data-floating': floating }}
+        />
+        <TextInput
+          label="Score"
+          placeholder="10000000000000"
+          required
+          classNames={classes}
+          value={score}
+          onChange={(event) => setScore(event.currentTarget.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          mt="md"
+          autoComplete="nope"
+          data-floating={floating}
+          labelProps={{ 'data-floating': floating }}
+        />
+        <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }} onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Modal>
+
       <section>
         {
           Object.keys(filters).map((label) => (
@@ -196,6 +252,12 @@ const Leaderboard = () => {
           ))
         }
       </section>
+      <section>
+        <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }}  onClick={open} >
+          Add New Score
+        </Button>
+      </section>
+
       <TableScrollArea entries={data.filter(filters[mode])} />
     </div>
   );
