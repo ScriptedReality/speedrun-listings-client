@@ -244,10 +244,7 @@ const Leaderboard = () => {
           Submit
         </Button>
       </Modal>
-
-  return (
     <div className="leaderboard-container">
-      <h1 className="leaderboard-title">Leaderboard</h1>
       <section>
         {
           Object.keys(filters).map((label) => (
@@ -264,6 +261,7 @@ const Leaderboard = () => {
       </section>
 
       <TableScrollArea entries={data.filter(filters[mode])} />
+    </div>
     </div>
   );
 };
