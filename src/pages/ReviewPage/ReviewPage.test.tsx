@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, fireEvent, RenderResult, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, RenderResult } from "@testing-library/react";
 import ReviewPage from './ReviewPage';
 
 function getReviewPage(): RenderResult {
@@ -11,7 +11,7 @@ function getReviewPage(): RenderResult {
 
 }
 
-it("Successfully submits reviews", async () => {
+it("Successfully submits reviews", () => {
 
   // Type user name
   getReviewPage();
@@ -27,8 +27,8 @@ it("Successfully submits reviews", async () => {
   fireEvent.click(submitButton);
 
   // Verify the review box is empty.
-  await waitFor(() => expect(usernameBox.value).toBe(""));
-  await waitFor(() => expect(contentBox.value).toBe(""));
+  expect(usernameBox.value).toBe("");
+  expect(contentBox.value).toBe("");
 
   // Verify the review appears on the page.
   screen.getByText("Bob Davies");
@@ -45,12 +45,25 @@ it("Successfully shows reviewers' correct amount of stars", () => {
 
 });
 
-it("deletes reviews", () => {
+it("Successfully deletes reviews", () => {
 
-  // Type random content in review body
+  // Generate a random review.
+  getReviewPage();
+  const usernameBox = screen.getByLabelText("Username") as HTMLInputElement;
+  fireEvent.change(usernameBox, {target: {value: "Bob Davies"}});
 
-  // Press submit button
+  const contentBox = screen.getByLabelText("Description") as HTMLInputElement;
+  fireEvent.change(contentBox, {target: {value: "This totally is the best website ever :)"}});
 
-  // Delete review
+  const submitButton = screen.getByRole("button", {name: "Submit"}) as HTMLButtonElement;
+  fireEvent.click(submitButton);
+
+  // Delete the review.
+  const deleteButton = screen.getByRole("button", {name: "Delete"}) as HTMLButtonElement;
+  fireEvent.click(deleteButton);
+
+  // Verify the review isn't there.
+  const usernameLabel = screen.queryByText("Bob Davies");
+  expect(usernameLabel).toBeNull();
 
 });

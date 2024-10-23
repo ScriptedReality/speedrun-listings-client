@@ -33,6 +33,7 @@ export default function ReviewPage() {
             <li key={review.id}>
               <b>{review.username}</b>
               <p>{review.description}</p>
+              <button type="button" onClick={() => setReviewList(reviewList.filter((possibleReview) => possibleReview.id !== review.id))}>Delete</button>
             </li> 
           ))
         }
@@ -40,11 +41,11 @@ export default function ReviewPage() {
       <form onSubmit={(event) => submitReview(event)}>
         <section>
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)} />
+          <input required type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)} />
         </section>
         <section>
           <label htmlFor="description">Description</label>
-          <textarea id="description" value={description} onChange={(event) => setDescription(event.target.value)} />
+          <textarea required id="description" value={description} onChange={(event) => setDescription(event.target.value)} />
         </section>
         <button type="submit">Submit</button>
       </form>
