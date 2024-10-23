@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, fireEvent, RenderResult } from "@testing-library/react";
+import { render, screen, fireEvent, RenderResult, waitFor } from "@testing-library/react";
 import ReviewPage from './ReviewPage';
 
 function getReviewPage(): RenderResult {
@@ -11,7 +11,7 @@ function getReviewPage(): RenderResult {
 
 }
 
-it("Successfully submits reviews", () => {
+it("Successfully submits reviews", async () => {
 
   // Type user name
   getReviewPage();
@@ -27,14 +27,14 @@ it("Successfully submits reviews", () => {
   fireEvent.click(submitButton);
 
   // Verify the review box is empty.
-  expect(usernameBox.value).toBe("");
-  expect(contentBox.value).toBe("");
+  await waitFor(() => expect(usernameBox.value).toBe(""));
+  await waitFor(() => expect(contentBox.value).toBe(""));
 
   // Verify the review appears on the page.
 
 });
 
-it("shows reviewers' correct amount of stars", () => {
+it("Successfully shows reviewers' correct amount of stars", () => {
 
   // Press stars
 

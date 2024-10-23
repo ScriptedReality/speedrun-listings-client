@@ -28,11 +28,11 @@ export default function ReviewPage() {
       <form onSubmit={(event) => submitReview(event)}>
         <section>
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
+          <input type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)} />
         </section>
         <section>
           <label htmlFor="description">Description</label>
-          <textarea id="description" />
+          <textarea id="description" value={description} onChange={(event) => setDescription(event.target.value)} />
         </section>
         <button type="submit">Submit</button>
       </form>
