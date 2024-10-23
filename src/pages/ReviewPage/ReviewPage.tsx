@@ -1,10 +1,12 @@
 import { useState, FormEvent } from "react";
+import { randomBytes } from "crypto";
 
 export default function ReviewPage() {
 
   type Review = {
     username: string;
     description: string;
+    id: string;
   }
 
   const [username, setUsername] = useState<string>("");
@@ -17,7 +19,7 @@ export default function ReviewPage() {
     event.preventDefault();
 
     // Add the review to the list.
-    setReviewList([...reviewList, {username, description}]);
+    setReviewList([...reviewList, {username, description, id: randomBytes(16).toString("hex")}]);
     setUsername("");
     setDescription("");
 
@@ -25,6 +27,16 @@ export default function ReviewPage() {
   
   return (
     <main>
+      <ul>
+        {
+          reviewList.map((review) => (
+            <li key={review.id}>
+              <b>{review.username}</b>
+              <p>{review.description}</p>
+            </li> 
+          ))
+        }
+      </ul>
       <form onSubmit={(event) => submitReview(event)}>
         <section>
           <label htmlFor="username">Username</label>

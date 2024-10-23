@@ -31,6 +31,7 @@ it("Successfully submits reviews", async () => {
   await waitFor(() => expect(contentBox.value).toBe(""));
 
   // Verify the review appears on the page.
+  screen.getByText("Bob Davies");
 
 });
 
