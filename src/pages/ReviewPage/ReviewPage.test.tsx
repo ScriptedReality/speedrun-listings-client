@@ -4,11 +4,17 @@
 
 import { render, screen, fireEvent, RenderResult } from "@testing-library/react";
 import ReviewPage from './ReviewPage';
+import { Rating } from '@mantine/core';
+import { useState } from 'react';
 
 function getReviewPage(): RenderResult {
 
   return render(<ReviewPage />);
 
+}
+function demo() {
+  const [value, setValue] = useState(0);
+  return <Rating value={value} onChange={setValue} />;
 }
 
 it("Successfully submits reviews", () => {
@@ -36,13 +42,19 @@ it("Successfully submits reviews", () => {
 });
 
 it("Successfully shows reviewers' correct amount of stars", () => {
-
+  getReviewPage();
+  
   // Press stars
-
-  // Press submit button
-
-  // Check if review is there with the correct stars
-
+   //returns value of pressed stars
+   const rate = demo();
+   
+   // Press submit button
+   const submitButton = screen.getByRole("button", {name: "Submit"}) as HTMLButtonElement;
+   fireEvent.click(submitButton);
+   // Check if review is there with the correct stars
+   const rating = screen.getByLabelText("Rate") as HTMLInputElement;
+   fireEvent.change(rating, {target: {value: rate}});
+ 
 });
 
 it("Successfully deletes reviews", () => {
