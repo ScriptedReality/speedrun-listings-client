@@ -1,17 +1,10 @@
 import { useState } from "react";
-import {
-  Container,
-  Grid,
-  Title,
-  Button,
-  Menu,
-  MenuItem,
-  Group,
-} from "@mantine/core";
+import { Grid, SegmentedControl } from "@mantine/core";
 import "../styles/LeaderboardPage.css";
 import "@mantine/core/styles.css";
 
 import LeaderboardEntryCard from "../components/LeaderboardEntryCard";
+import LeaderboardTitle from "../components/LeaderboardTitle";
 
 const data = [
   {
@@ -169,9 +162,8 @@ const data = [
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState(data);
   const [filter, setFilter] = useState("All Time");
-  console.log(filter);
+
   const filterScores = (filter: string) => {
-    setFilter(filter);
     let filteredData;
     const now = new Date();
     switch (filter) {
@@ -203,47 +195,33 @@ const Leaderboard = () => {
   };
 
   return (
-    <Container mb={4}>
-      <Container m={4} className={"leaderboard-container"}>
-        <Title
-          order={1}
-          style={{ fontSize: 40, fontWeight: 700, marginBottom: 20 }}
-        >
-          Do you have what it takes?
-        </Title>
-        <Container mb={4}>
-          <Grid gutter="sm">
-            <Group>
-              <Menu>
-                <Menu.Target>
-                  <Button variant="outline" size="sm">
-                    Filter
-                  </Button>
-                </Menu.Target>
-                <Menu.Dropdown>
-                  <MenuItem onClick={() => filterScores("Today")}>
-                    Today
-                  </MenuItem>
-                  <MenuItem onClick={() => filterScores("This week")}>
-                    This week
-                  </MenuItem>
-                  <MenuItem onClick={() => filterScores("This Month")}>
-                    This Month
-                  </MenuItem>
-                  <MenuItem onClick={() => filterScores("This Year")}>
-                    This Year
-                  </MenuItem>
-                  <MenuItem onClick={() => filterScores("All Time")}>
-                    All Time
-                  </MenuItem>
-                </Menu.Dropdown>
-              </Menu>
-            </Group>
+    <div className="leaderboard-page">
+      <div className="leaderboard-container">
+        <LeaderboardTitle />
+        <div className="leaderboard-filter">
+          <Grid justify="center">
+            <Grid.Col span="content" mt={"2rem"}>
+              <SegmentedControl
+                value={filter}
+                onChange={(value) => {
+                  setFilter(value);
+                  filterScores(value);
+                }}
+                color="blue"
+                data={[
+                  { label: "Today", value: "Today" },
+                  { label: "This week", value: "This week" },
+                  { label: "This Month", value: "This Month" },
+                  { label: "This Year", value: "This Year" },
+                  { label: "All Time", value: "All Time" },
+                ]}
+              />
+            </Grid.Col>
           </Grid>
-        </Container>
+        </div>
         <LeaderboardEntryCard leaderboardData={leaderboardData} />
-      </Container>
-    </Container>
+      </div>
+    </div>
   );
 };
 

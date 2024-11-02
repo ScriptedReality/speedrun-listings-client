@@ -1,5 +1,19 @@
+.leaderboard-page {
+  margin-bottom: 1rem;
+}
+
 .leaderboard-container {
-  width: 100%;
-  height: 100%;
+  margin: 1rem;
+}
+
+.leaderboard-filter {
+  margin-bottom: 1rem;
+}
+
+.score-card {
   transition: all ease 0.5s;
+}
+
+.score-card:hover {
+  background-color: var(--mantine-color-blue-5);
 }

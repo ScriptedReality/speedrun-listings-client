@@ -16,7 +16,7 @@ const LeaderboardEntryCard = ({
   return (
     <Stack>
       {leaderboardData.map((item) => (
-        <Card key={item.name} shadow="sm" p="md">
+        <Card key={item.name} shadow="sm" p="md" className="score-card">
           <Grid>
             <Grid.Col span={6}>{item.name}</Grid.Col>
             <Grid.Col span={3}>{item.score}</Grid.Col>
