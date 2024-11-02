@@ -1,14 +1,19 @@
-import { LeaderboardEntry, TableScrollArea } from "../components/LeaderboardComponent";
-import "../styles/TableScrollArea.module.css";
-import "../styles/LeaderboardPage.css";
 import { useState } from "react";
-import { Modal, Button, TextInput } from "@mantine/core";
-import { useDisclosure } from '@mantine/hooks';
+import {
+  Container,
+  Grid,
+  Title,
+  Button,
+  Menu,
+  MenuItem,
+  Group,
+} from "@mantine/core";
+import "../styles/LeaderboardPage.css";
 import "@mantine/core/styles.css";
-import classes from "../styles/FloatingLabelInput.module.css";
 
+import LeaderboardEntryCard from "../components/LeaderboardEntryCard";
 
-const data: LeaderboardEntry[] = [
+const data = [
   {
     name: "Athena Weissnat",
     score: 1000000,
@@ -161,108 +166,84 @@ const data: LeaderboardEntry[] = [
   },
 ];
 
-type Filter = "Today" | "This week" | "This month" | "This year" | "All-time";
-
 const Leaderboard = () => {
+  const [leaderboardData, setLeaderboardData] = useState(data);
+  const [filter, setFilter] = useState("All Time");
+  console.log(filter);
+  const filterScores = (filter: string) => {
+    setFilter(filter);
+    let filteredData;
+    const now = new Date();
+    switch (filter) {
+      case "Today":
+        filteredData = data.filter(
+          (entry) => entry.date.toDateString() === now.toDateString()
+        );
+        break;
+      case "This week":
+        const weekAgo = new Date(now);
+        weekAgo.setDate(now.getDate() - 7);
+        filteredData = data.filter((entry) => entry.date >= weekAgo);
+        break;
+      case "This Month":
+        const monthAgo = new Date(now);
+        monthAgo.setMonth(now.getMonth() - 1);
+        filteredData = data.filter((entry) => entry.date >= monthAgo);
+        break;
+      case "This Year":
+        const yearAgo = new Date(now);
+        yearAgo.setFullYear(now.getFullYear() - 1);
+        filteredData = data.filter((entry) => entry.date >= yearAgo);
+        break;
+      default:
+        filteredData = data;
+    }
 
-  const [mode, setMode] = useState<Filter>("Today");
-  const today = new Date();
-  const filters = {
-    "Today": (entry: LeaderboardEntry) => entry.date.getUTCFullYear() === today.getUTCFullYear() && entry.date.getUTCDate() === today.getUTCDate() && entry.date.getUTCMonth() === today.getUTCMonth(),
-    "This week": (entry: LeaderboardEntry) => {
-      
-      const firstDayThisWeek = new Date();
-      firstDayThisWeek.setDate(today.getDate() - today.getDay());
-      firstDayThisWeek.setHours(0);
-      firstDayThisWeek.setMinutes(0);
-      firstDayThisWeek.setSeconds(0);
-      firstDayThisWeek.setMilliseconds(0);
-
-      const firstDayNextWeek = new Date(firstDayThisWeek);
-      firstDayNextWeek.setDate(firstDayNextWeek.getDate() + 7);
-
-      return entry.date >= firstDayThisWeek && entry.date < firstDayNextWeek;
-
-    },
-    "This month": (entry: LeaderboardEntry) => entry.date.getUTCFullYear() === today.getUTCFullYear() && entry.date.getUTCMonth() === today.getUTCMonth(),
-    "This year": (entry: LeaderboardEntry) => entry.date.getUTCFullYear() === today.getUTCFullYear(),
-    "All-time": () => true
-  }
-
-
-  const [opened, { open, close }] = useDisclosure(false);
-  const [focused, setFocused] = useState(false);
-  const [name, setName] = useState('');
-  const [score, setScore] = useState('');
-  const floating = name.trim().length !== 0 || focused || undefined;
-
-  const handleSubmit = () => {
-    const newEntry: LeaderboardEntry = {
-      name,
-      score: parseInt(score),
-      date: new Date(),
-    };
-    data.push(newEntry);
-    setName('');
-    setScore('');
-    close();
+    setLeaderboardData(filteredData);
   };
 
   return (
-    <div className="leaderboard-container">
-      <h1 className="leaderboard-title">Leaderboard</h1>
-      <Modal opened={opened} onClose={close} title="Authentication" centered>
-        <TextInput
-          label="Name"
-          placeholder="Austin Vandegriff"
-          required
-          classNames={classes}
-          value={name}
-          onChange={(event) => setName(event.currentTarget.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          mt="md"
-          autoComplete="nope"
-          data-floating={floating}
-          labelProps={{ 'data-floating': floating }}
-        />
-        <TextInput
-          label="Score"
-          placeholder="10000000000000"
-          required
-          classNames={classes}
-          value={score}
-          onChange={(event) => setScore(event.currentTarget.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          mt="md"
-          autoComplete="nope"
-          data-floating={floating}
-          labelProps={{ 'data-floating': floating }}
-        />
-        <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }} onClick={handleSubmit}>
-          Submit
-        </Button>
-      </Modal>
-    <div className="leaderboard-container">
-      <section>
-        {
-          Object.keys(filters).map((label) => (
-            <button disabled={mode === label} onClick={() => setMode(label as Filter)}>
-              {label}
-            </button>
-          ))
-        }
-      </section>
-      <section>
-        <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }}  onClick={open} >
-          Add New Score
-        </Button>
-      </section>
-
-      <TableScrollArea entries={data.filter(filters[mode])} />
-    </div>
-    </div>
+    <Container mb={4}>
+      <Container m={4} className={"leaderboard-container"}>
+        <Title
+          order={1}
+          style={{ fontSize: 40, fontWeight: 700, marginBottom: 20 }}
+        >
+          Do you have what it takes?
+        </Title>
+        <Container mb={4}>
+          <Grid gutter="sm">
+            <Group>
+              <Menu>
+                <Menu.Target>
+                  <Button variant="outline" size="sm">
+                    Filter
+                  </Button>
+                </Menu.Target>
+                <Menu.Dropdown>
+                  <MenuItem onClick={() => filterScores("Today")}>
+                    Today
+                  </MenuItem>
+                  <MenuItem onClick={() => filterScores("This week")}>
+                    This week
+                  </MenuItem>
+                  <MenuItem onClick={() => filterScores("This Month")}>
+                    This Month
+                  </MenuItem>
+                  <MenuItem onClick={() => filterScores("This Year")}>
+                    This Year
+                  </MenuItem>
+                  <MenuItem onClick={() => filterScores("All Time")}>
+                    All Time
+                  </MenuItem>
+                </Menu.Dropdown>
+              </Menu>
+            </Group>
+          </Grid>
+        </Container>
+        <LeaderboardEntryCard leaderboardData={leaderboardData} />
+      </Container>
+    </Container>
   );
 };
 
