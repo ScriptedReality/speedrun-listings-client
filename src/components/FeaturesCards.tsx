@@ -14,21 +14,21 @@ import classes from "../styles/FeaturesCards.module.css";
 
 const mockdata = [
   {
-    title: "Extreme performance",
+    title: "Procedural Generation",
     description:
-      "This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
+      "Never play the same game twice, the landscape, items, and enemies will be different every time!",
     icon: IconGauge,
   },
   {
-    title: "Privacy focused",
+    title: "Single and Multiplayer",
     description:
-      "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma",
+      "Play alone or with friends to see how you can do against the hordes! The more friends you add in the harder it gets!",
     icon: IconUser,
   },
   {
-    title: "No third parties",
+    title: "This is a cookie idk",
     description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
+      "Cookies are yummy, and I think they taste really good. I think that this cookie is probably not great cause its blue",
     icon: IconCookie,
   },
 ];
@@ -61,17 +61,16 @@ export function FeaturesCards() {
     <Container size="lg" py="xl">
       <Group justify="center">
         <Badge variant="filled" size="lg">
-          Best company ever
+          Best Front-End Ever
         </Badge>
       </Group>
 
       <Title order={2} className={classes.title} ta="center" mt="sm">
-        Integrate effortlessly with any technology stack
+        Scripted Reality is a Name We Had ChatGPT Come Up With
       </Title>
 
       <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        Every once in a while, you’ll see a Golbat that’s missing some fangs.
-        This happens when hunger drives it to try biting a Steel-type Pokémon.
+        As you can tell we are very creative people that can think for ourselves, and definitely dont use AI for every inconvience...
       </Text>
 
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>

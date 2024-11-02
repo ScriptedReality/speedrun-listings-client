@@ -2,9 +2,6 @@ import { Image, Accordion, Grid, Container, Title } from "@mantine/core";
 import image from "../assets/faqimage.svg";
 import classes from "../styles/faq.module.css";
 
-const placeholder =
-  "It can’t help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren’t many people or Pokémon.";
-
 export function Faq() {
   return (
     <div className={classes.wrapper}>
@@ -21,30 +18,30 @@ export function Faq() {
             <Accordion chevronPosition="right" variant="separated">
               <Accordion.Item className={classes.item} value="reset-password">
                 <Accordion.Control>
-                  How can I reset my password?
+                  How Do I make an Account?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>Click the profile icon on the header near the top of the screen, click login and then create an account from there!</Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="another-account">
                 <Accordion.Control>
-                  Can I create more that one account?
+                  Can I see the Source Code?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>The entire game is open source and readily available! Check the github link on this website to check it out!</Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="newsletter">
                 <Accordion.Control>
-                  How can I subscribe to monthly newsletter?
+                  Do you store payment information?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>We use plaid as a middle man and recieve none of your payment information.</Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="credit-card">
                 <Accordion.Control>
-                  Do you store credit card information securely?
+                  How does your website look so good?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>We have the best front end developer in the western hemisphere, Aiden Jastrzembski.</Accordion.Panel>
               </Accordion.Item>
             </Accordion>
           </Grid.Col>
