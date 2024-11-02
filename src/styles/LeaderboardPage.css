@@ -1,22 +1,19 @@
-@import "@mantine/core/styles.css";
-
-body {
-  background: var(--mantine-color-dark-8);
+.leaderboard-page {
+  margin-bottom: 1rem;
 }
 
 .leaderboard-container {
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: var(--mantine-color-dark-9);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
 }
 
-.leaderboard-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--mantine-color-white);
+.leaderboard-filter {
+  margin-bottom: 1rem;
+}
+
+.score-card {
+  transition: all ease 0.5s;
+}
+
+.score-card:hover {
+  background-color: var(--mantine-color-blue-5);
 }
