@@ -1,5 +1,6 @@
 import { Grid, Card, Stack } from "@mantine/core";
 import "@mantine/core/styles.css";
+import ScrollAnimation from "./ScrollAnimation"
 interface LeaderboardEntry {
   name: string;
   score: number;
@@ -16,6 +17,7 @@ const LeaderboardEntryCard = ({
   return (
     <Stack>
       {leaderboardData.map((item) => (
+          <ScrollAnimation direction={"up"} delay={.4}>
         <Card key={item.name} shadow="sm" p="md" className="score-card">
           <Grid>
             <Grid.Col span={6}>{item.name}</Grid.Col>
@@ -23,6 +25,7 @@ const LeaderboardEntryCard = ({
             <Grid.Col span={3}>{item.date.toLocaleDateString()}</Grid.Col>
           </Grid>
         </Card>
+            </ScrollAnimation>
       ))}
     </Stack>
   );
