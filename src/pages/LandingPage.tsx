@@ -28,20 +28,35 @@ const LandingPage = () => {
           </ScrollAnimation>
         </Center>
 
-        <ScrollAnimation direction="up" delay={0.3}>
-          <CarouselComponent />
-        </ScrollAnimation>
-
-        <Center>
-          <ScrollAnimation direction="right" delay={0.4}>
-            <Faq />
+        
+        <div>
+          <ScrollAnimation direction="up" delay={0.3}>
+            <CarouselComponent />
           </ScrollAnimation>
+        </div>
+        
+
+        <Center style={{ marginTop: "100px" }}>
+          <div style={{ width: "70%", wordWrap: "break-word", overflow: "hidden" }}>
+            <ScrollAnimation direction="right" delay={0.4}>
+              <Faq />
+            </ScrollAnimation>
+          </div>
+          
         </Center>
+
+        
+        
         <ScrollAnimation direction="left" delay={0.5}>
-          <Center>
-            <EmailBanner />
+          <Center style={{ marginTop: "100px", marginBottom: "100px" }}>
+            <div style={{ width: "70%" }}>
+              <EmailBanner />
+            </div>
           </Center>
         </ScrollAnimation>
+        
+        
+        
       </div>
     </div>
   );
