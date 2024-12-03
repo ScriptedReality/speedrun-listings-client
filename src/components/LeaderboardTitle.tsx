@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Title, Text, Button, Modal, Container, TextInput, Group } from "@mantine/core";
 import { Dots } from "./Dots";
 import classes from "../styles/LeaderboardTitle.module.css";
+import axios from 'axios';
+import { notifications } from '@mantine/notifications';
 
 export function LeaderboardTitle() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -14,26 +16,44 @@ export function LeaderboardTitle() {
   };
 
   const submitRun = async () => {
+    try{
+      const response1 = await axios.get('http://localhost:3001/game-pages');
+      console.log(response1);
+    } catch (error){
+      console.error('Error in submitrun test');
+    }
     try {
-      const response = await fetch('API-ENDPOINT-GOES-HERE', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ url, time }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit run');
+      console.log(JSON.stringify({ url, time }))
+      const response = await axios.post('http://localhost:3001/runs/674f8b41ee5c45da70ae668f/', { time, url });
+    
+      if (response.status !== 201) {
+        
+        notifications.show({
+          title: 'Success',
+          message: 'Filed to submit run',
+          color: 'red',
+          position: 'top-center',
+        });
       }
 
       // Clear inputs and close modal on successful submission
       clearInputs();
       setModalOpened(false);
-      alert('Run submitted successfully!');
+      // Show success notification
+      notifications.show({
+        title: 'Success',
+        message: 'Run submitted successfully!',
+        color: 'purple',
+        position: 'top-center',
+      });
     } catch (error) {
       console.error('Error submitting run:', error);
-      alert('There was an error submitting your run.');
+      notifications.show({
+        title: 'Success',
+        message: 'Failed to submit run',
+        color: 'red',
+        position: 'top-center',
+      });
     }
   };
 

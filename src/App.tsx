@@ -6,10 +6,13 @@ import "@mantine/core/styles.css";
 import { HeaderSimple } from "./components/Header.tsx";
 import { Footer } from "./components/Footer.tsx";
 import "./App.css";
+import { Notifications } from "@mantine/notifications"
+import '@mantine/notifications/styles.css';
 
 function App() {
   return (
     <MantineProvider>
+      <Notifications /> 
       <Router>
         <div className="sticky-header">
           <HeaderSimple />
