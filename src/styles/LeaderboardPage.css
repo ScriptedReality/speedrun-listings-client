@@ -17,3 +17,10 @@
 .score-card:hover {
   background-color: var(--mantine-color-blue-5);
 }
+
+/*Mantine Styles*/
+.mantine-Notification-root {
+  background: light-dark(rgba(255, 255, 255, 0.1), rgba(30, 30, 30, 0.1));
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}

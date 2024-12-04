@@ -4,6 +4,7 @@ import { Dots } from "./Dots";
 import classes from "../styles/LeaderboardTitle.module.css";
 import axios from 'axios';
 import { notifications } from '@mantine/notifications';
+import { AxiosError } from 'axios';
 
 export function LeaderboardTitle() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -25,16 +26,9 @@ export function LeaderboardTitle() {
     try {
       console.log(JSON.stringify({ url, time }))
       const response = await axios.post('http://localhost:3001/runs/674f8b41ee5c45da70ae668f/', { time, url });
-    
-      if (response.status !== 201) {
-        
-        notifications.show({
-          title: 'Success',
-          message: 'Filed to submit run',
-          color: 'red',
-          position: 'top-center',
-        });
-      }
+      
+      
+      
 
       // Clear inputs and close modal on successful submission
       clearInputs();
@@ -48,9 +42,12 @@ export function LeaderboardTitle() {
       });
     } catch (error) {
       console.error('Error submitting run:', error);
+      const axiosError = error as AxiosError;
+      /*@ts-ignore This could be a problem in the future - the .message isn't happy*/
+      const errorMessage = axiosError.response?.data?.message || 'There was an error submitting your run.';
       notifications.show({
         title: 'Success',
-        message: 'Failed to submit run',
+        message: errorMessage.toString(),
         color: 'red',
         position: 'top-center',
       });
