@@ -1,17 +1,44 @@
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+  display: "swap",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "Script",
+  description: "Development server for Script Website",
+};
+
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <title>Swiftplay</title>
-        <meta name="description" content="Swiftplay Speedruns" />
-      </head>
-      <body>
-        <div id="root">{children}</div>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
