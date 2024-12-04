@@ -172,21 +172,24 @@ const Leaderboard = () => {
           (entry) => entry.date.toDateString() === now.toDateString()
         );
         break;
-      case "This week":
+      case "This week": {
         const weekAgo = new Date(now);
         weekAgo.setDate(now.getDate() - 7);
         filteredData = data.filter((entry) => entry.date >= weekAgo);
         break;
-      case "This Month":
+      }
+      case "This Month": {
         const monthAgo = new Date(now);
         monthAgo.setMonth(now.getMonth() - 1);
         filteredData = data.filter((entry) => entry.date >= monthAgo);
         break;
-      case "This Year":
+      }
+      case "This Year": {
         const yearAgo = new Date(now);
         yearAgo.setFullYear(now.getFullYear() - 1);
         filteredData = data.filter((entry) => entry.date >= yearAgo);
         break;
+      }
       default:
         filteredData = data;
     }
