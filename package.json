@@ -16,6 +16,7 @@
     "@mantine/carousel": "^7.13.4",
     "@mantine/core": "^7.13.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@react-three/fiber": "^8.17.10",
     "@tabler/icons-react": "^3.19.0",
     "@tanstack/react-query-devtools": "^5.59.16",
     "class-variance-authority": "^0.7.1",
@@ -29,8 +30,10 @@
     "react-dom": "^18.3.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.26.2",
+    "simplex-noise": "^4.0.3",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.171.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.25.9",
