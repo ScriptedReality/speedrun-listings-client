@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Title, Text, Button, Modal, Container, TextInput, Group } from "@mantine/core";
+import { Title, Text, Button, Modal, Container, TextInput, Group, Center } from "@mantine/core";
 import { Dots } from "./Dots";
 import classes from "../styles/LeaderboardTitle.module.css";
+import "../styles/LeaderboardPage.css";
 import axios from 'axios';
 import { notifications } from '@mantine/notifications';
 import { AxiosError } from 'axios';
@@ -17,28 +18,19 @@ export function LeaderboardTitle() {
   };
 
   const submitRun = async () => {
-    try{
-      const response1 = await axios.get('http://localhost:3001/game-pages');
-      console.log(response1);
-    } catch (error){
-      console.error('Error in submitrun test');
-    }
     try {
       console.log(JSON.stringify({ url, time }))
-      const response = await axios.post('http://localhost:3001/runs/674f8b41ee5c45da70ae668f/', { time, url });
+      await axios.post('http://localhost:3001/runs/674f8b41ee5c45da70ae668f/', { time, url });
       
-      
-      
-
-      // Clear inputs and close modal on successful submission
       clearInputs();
       setModalOpened(false);
-      // Show success notification
+
       notifications.show({
         title: 'Success',
         message: 'Run submitted successfully!',
         color: 'purple',
         position: 'top-center',
+        
       });
     } catch (error) {
       console.error('Error submitting run:', error);
@@ -50,6 +42,7 @@ export function LeaderboardTitle() {
         message: errorMessage.toString(),
         color: 'red',
         position: 'top-center',
+        
       });
     }
   };
@@ -83,7 +76,7 @@ export function LeaderboardTitle() {
         </div>
       </div>
 
-      <Modal
+      <Modal centered
         opened={modalOpened}
         onClose={() => {
           clearInputs();
