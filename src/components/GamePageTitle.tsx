@@ -1,8 +1,10 @@
 import { Title, Text, Button, Container } from "@mantine/core";
 import classes from "../styles/GamePage.module.css";
+import Leaderboard from "../pages/Leaderboard";
 
 export function GamePageTitle(){
     return(
+      <>
     <Container className={classes.wrapper} size={1400}>
       <div style={{ height: "20px" }}></div>
       <div className={classes.inner}>
@@ -28,7 +30,16 @@ export function GamePageTitle(){
         <div className={classes.statItem}>Runs: 320</div>
         <div className={classes.statItem}>Players: 45</div>
     </div>
-    </Container>
+  </Container>
+     <Container className={classes.navBarContainer} size={1520}>
+     <nav className={classes.navBar}>
+       <a href="#leaderboard" className={classes.navLink}>Leaderboard</a>
+       <a href="#news" className={classes.navLink}>News</a>
+       <a href="#levels" className={classes.navLink}>Levels</a>
+     </nav>
+   </Container>
+   <Leaderboard/>
+ </>
     );
 }
 export default GamePageTitle;

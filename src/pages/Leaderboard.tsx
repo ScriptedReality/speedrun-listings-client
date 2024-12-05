@@ -197,7 +197,6 @@ const Leaderboard = () => {
   return (
     <div className="leaderboard-page">
       <div className="leaderboard-container">
-        <LeaderboardTitle />
         <div className="leaderboard-filter">
           <Grid justify="center">
             <Grid.Col span="content" mt={"2rem"}>
