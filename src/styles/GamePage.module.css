@@ -1,0 +1,62 @@
+.wrapper {
+    display: flex; /* Turn wrapper into a flex container */
+    justify-content: flex-start; /* Adjust to flex-end for full right alignment */ /* Optional padding for additional spacing */
+    border: 2px solid black;
+    width: 60%;
+    padding: 0;
+  }
+
+.gameImagePlaceholder
+{
+    
+    width: 120px; /* Width of the square */
+    height: 150px; /* Height of the square */
+    background-color: #ccc; /* Light gray background */
+    border: 2px dashed #aaa; /* Dashed border to indicate a placeholder */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Placeholder text size */
+    color: #555; /* Placeholder text color */
+  }
+  
+  .inner {
+    display: flex; /* Arrange children horizontally */
+    align-items: flex-start; /* Align items to the top */
+    gap: 25px; /* Space between the image and text */
+  }
+  
+  .textContainer {
+    margin-top: -5px;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-start; /* Align text to the top */
+  }
+  
+  .gameTitle {
+    margin: 0; /* Remove default margin from the heading */
+    font-size: 1.5rem; /* Adjust font size */
+    color: #f39c12; /* Add custom color */
+  }
+  .highlight {
+    color: #a7a7a7; /* Change this to the color you want */
+  }
+  .ovalContainer {
+    display: flex;
+    gap: 20px; /* Space between the ovals */
+    margin-top: 10px; /* Space between title and ovals */
+  }
+  
+  .oval {
+    width: 30px; /* Width of the oval */
+    height: 15px; /* Height of the oval */
+    background-color: #a7a7a7; /* Color of the oval */
+    border-radius: 25px; /* Makes it oval-shaped */
+    display: inline-block;
+    justify-content: center; /* Horizontally center the text */
+    align-items: center; /* Vertically center the text */
+    color: white; /* Text color */
+    font-size: .70rem; /* Text size inside the oval */
+    font-weight: bold; /* Optional: make the text bold */
+    padding:0 5px;
+  }
