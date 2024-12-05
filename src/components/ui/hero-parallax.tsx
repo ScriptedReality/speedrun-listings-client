@@ -105,11 +105,11 @@ export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        Completely Open Source <br /> And Moddable
+        Join Tens of Users <br /> on the Leaderboard
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We host all of our code and game files on github and they are free! Feel
-        free to create mods and and interact with the community!
+        We keep track of all the fastest runs for all major games! Add your
+        scores to see how they stack up against the best of the best!
       </p>
     </div>
   );
