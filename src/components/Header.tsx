@@ -11,6 +11,7 @@ const links = [
   { link: "/about", label: "Pricing" },
   { link: "/story", label: "Our Story" },
   { link: "/careers", label: "Careers" },
+  { link: "/games", label: "Games" },
 ];
 
 export function HeaderSimple() {
