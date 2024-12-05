@@ -4,6 +4,7 @@ import classes from "../styles/GamePage.module.css";
 export function GamePageTitle(){
     return(
     <Container className={classes.wrapper} size={1400}>
+      <div style={{ height: "20px" }}></div>
       <div className={classes.inner}>
         <div className={classes.gameImagePlaceholder}></div>
           <div className={classes.textContainer}>
@@ -15,9 +16,18 @@ export function GamePageTitle(){
                 <span className={classes.oval}>N64</span>
                 <span className={classes.oval}>PS2</span>
             </div>
+            <Button className={classes.submitRunButton}>Submit Run</Button>
           </div>
         </div>
-    
+      <div className={classes.runnerInfo}>
+                 <span className={classes.runnerText}>Active Runners: 12</span>
+                 <span className={classes.runnerText}>Live Runners: 8</span>
+      </div>
+    <div className={classes.statsContainer}>
+        <div className={classes.statItem}>Followers: 1500</div>
+        <div className={classes.statItem}>Runs: 320</div>
+        <div className={classes.statItem}>Players: 45</div>
+    </div>
     </Container>
     );
 }

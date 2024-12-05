@@ -1,9 +1,10 @@
 .wrapper {
     display: flex; /* Turn wrapper into a flex container */
-    justify-content: flex-start; /* Adjust to flex-end for full right alignment */ /* Optional padding for additional spacing */
-    border: 2px solid black;
     width: 60%;
     padding: 0;
+    position: relative;
+    flex-direction: column; 
+    margin-left: 280px;
   }
 
 .gameImagePlaceholder
@@ -59,4 +60,50 @@
     font-size: .70rem; /* Text size inside the oval */
     font-weight: bold; /* Optional: make the text bold */
     padding:0 5px;
+  }
+  .submitRunButton {
+    position: absolute;
+    top: 20px; /* Align to the top */
+    right: 0; /* Align to the right */
+    background-color: #4caf50; /* Green background */
+    color: white; /* White text */
+    font-size: 1rem; /* Adjust font size */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submitRunButton:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  .runnerInfo {
+    position: absolute;
+    display: flex; /* Align the two texts horizontally */
+    width: 100%; /* Take up full width of the container */
+    gap: 20px;
+    bottom: 0px; /* Align with the bottom edge, with 10px spacing */
+    left: 145px; /* Align with the right edge, with 10px spacing */
+  }
+  
+  .runnerText {
+    font-size: 1rem;
+    color: #555; /* Text color */
+    font-weight: bold; /* Make the text stand out */
+  }
+  .statsContainer {
+    position: absolute;
+    bottom: 0px;
+    right: 45px; /* Align to the very right */
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    gap: 50px; /* Space between items */
+    width: 25%;
+  }
+  
+  .statItem {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
   }
