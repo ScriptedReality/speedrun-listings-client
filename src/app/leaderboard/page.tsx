@@ -19,7 +19,7 @@ import { LeaderboardScoreCard } from "~/components/ui/leaderboard-score-card";
 
 export default function LeaderboardPage() {
   return (
-    <div className="bg-black">
+    <div className=" w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] ">
       <div>
         <NavbarDemo />
       </div>
