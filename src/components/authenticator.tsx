@@ -5,17 +5,25 @@ import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "./ui/button";
+import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
  
-const formSchema = z.object({
+const accountCreationSchema = z.object({
   username: z.string().min(1).max(50),
   password: z.string().min(7).max(255),
   emailAddress: z.string().email(),
+});
+
+const sessionCreationSchema = z.object({
+  username: z.string().min(1).max(50),
+  password: z.string().min(7).max(255)
 })
 
-function Authenticator({onClose}: {onClose: () => void}) {
+type Mode = "signin" | "register";
+
+function Authenticator({mode, onClose, onModeChange}: {mode: Mode, onClose: () => void, onModeChange: (mode: Mode) => void}) {
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(mode === "register" ? accountCreationSchema : sessionCreationSchema),
     defaultValues: {
       username: "",
       password: "",
@@ -25,32 +33,62 @@ function Authenticator({onClose}: {onClose: () => void}) {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof accountCreationSchema | typeof sessionCreationSchema>) {
 
     setIsSubmitting(true);
 
     try {
 
-      // Try to create the account.
-      const accountCreationResponse = await fetch("https://speedrun-listings-server.onrender.com/accounts", {
+      if (mode === "register" && "emailAddress" in values) {
+
+        // Try to create the account.
+        const accountCreationResponse = await fetch("https://speedrun-listings-server.onrender.com/accounts", {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          method: "POST",
+          body: JSON.stringify({
+            emailAddress: values.emailAddress,
+            username: values.username,
+            password: values.password
+          })
+        });
+
+        const accountCreationResponseJSON = await accountCreationResponse.json();
+
+        if (!accountCreationResponse.ok) {
+
+          throw new Error(accountCreationResponseJSON.message ?? "Unknown error.");
+
+        }
+
+        onModeChange("signin");
+
+      }
+
+      // Create a new session.
+      const sessionCreationResponse = await fetch("https://speedrun-listings-server.onrender.com/account/sessions", {
         headers: {
           "Content-Type": "application/json"
         },
         method: "POST",
         body: JSON.stringify({
-          emailAddress: values.emailAddress,
           username: values.username,
           password: values.password
         })
       });
 
-      const accountCreationResponseJSON = await accountCreationResponse.json();
+      const sessionCreationResponseJSON = await sessionCreationResponse.json();
 
-      if (!accountCreationResponse.ok) {
+      if (!sessionCreationResponse.ok) {
 
-        throw new Error(accountCreationResponseJSON.message ?? "Unknown error.");
+        throw new Error(sessionCreationResponseJSON.message ?? "Unknown error.");
 
       }
+
+      // Save the session token and account ID to the cookies.
+      document.cookie = `accountID=${sessionCreationResponseJSON.accountID}; SameSite=Strict; Secure; Path=/; Expires=${new Date(sessionCreationResponseJSON.expirationDate)}`;
+      document.cookie = `sessionToken=${sessionCreationResponseJSON.token}; SameSite=Strict; Secure; Path=/; Expires=${new Date(sessionCreationResponseJSON.expirationDate)}`;
 
       onClose();
 
@@ -66,23 +104,33 @@ function Authenticator({onClose}: {onClose: () => void}) {
 
   return (
     <Form {...form}>
+      <Tabs value={mode} onValueChange={(newValue) => onModeChange(newValue as "signin" | "register")}>
+        <TabsList>
+          <TabsTrigger value="signin">Sign in</TabsTrigger>
+          <TabsTrigger value="register">Register</TabsTrigger>
+        </TabsList>
+      </Tabs>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="emailAddress"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email address</FormLabel>
-              <FormControl>
-                <Input required type="email" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {
+          mode === "register" ? (
+            <FormField
+              control={form.control}
+              name="emailAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email address</FormLabel>
+                  <FormControl>
+                    <Input required type="email" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    This is your public display name.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ) : undefined
+        }
         <FormField
           control={form.control}
           name="username"
