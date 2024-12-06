@@ -89,6 +89,7 @@ function Authenticator({mode, onClose, onModeChange}: {mode: Mode, onClose: () =
       // Save the session token and account ID to the cookies.
       document.cookie = `accountID=${sessionCreationResponseJSON.accountID}; SameSite=Strict; Secure; Path=/; Expires=${new Date(sessionCreationResponseJSON.expirationDate)}`;
       document.cookie = `sessionToken=${sessionCreationResponseJSON.token}; SameSite=Strict; Secure; Path=/; Expires=${new Date(sessionCreationResponseJSON.expirationDate)}`;
+      document.cookie = `sessionID=${sessionCreationResponseJSON.sessionID}; SameSite=Strict; Secure; Path=/; Expires=${new Date(sessionCreationResponseJSON.expirationDate)}`;
 
       onClose();
 
@@ -122,9 +123,6 @@ function Authenticator({mode, onClose, onModeChange}: {mode: Mode, onClose: () =
                   <FormControl>
                     <Input required type="email" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -140,9 +138,6 @@ function Authenticator({mode, onClose, onModeChange}: {mode: Mode, onClose: () =
               <FormControl>
                 <Input required {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -156,14 +151,11 @@ function Authenticator({mode, onClose, onModeChange}: {mode: Mode, onClose: () =
               <FormControl>
                 <Input required type="password" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isSubmitting}>Create account</Button>
+        <Button type="submit" disabled={isSubmitting}>{mode === "register" ? "Create account" : "Sign in"}</Button>
       </form>
     </Form>
   );

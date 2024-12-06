@@ -13,6 +13,7 @@ import {
 import Authenticator from "../authenticator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu";
 
 export default function NavbarDemo() {
   return (
@@ -34,13 +35,65 @@ function Navbar({ className }: { className?: string }) {
   const [authenticatorMode, setAuthenticatorMode] = useState<"signin" | "register">("signin");
   const [sessionToken, setSessionToken] = useState<string | null>(getCookie("sessionToken"));
   const [accountID, setAccountID] = useState<string | null>(getCookie("accountID"));
+  const [sessionID, setSessionID] = useState<string | null>(getCookie("sessionID"));
 
   useEffect(() => {
 
     setSessionToken(getCookie("sessionToken"));
     setAccountID(getCookie("accountID"));
+    setSessionID(getCookie("sessionID"));
 
   }, [isAuthenticating]);
+
+  const [isSigningOut, setIsSigningOut] = useState<boolean>(false);
+  useEffect(() => {
+
+    (async () => {
+
+      if (isSigningOut) {
+
+        try {
+
+          if (sessionID && sessionToken && accountID) {
+
+            const response = await fetch(`https://speedrun-listings-server.onrender.com/account/sessions/${sessionID}`, {
+              headers: {
+                "Content-Type": "application/json",
+                "token": sessionToken,
+                "account-id": accountID
+              },
+              method: "DELETE",
+            });
+
+            if (!response.ok) {
+
+              const responseJSON = await response.json();
+              throw new Error(responseJSON.message ?? "Unknown error.");
+
+            }
+
+          }
+
+        } catch (error: unknown) {
+
+          alert(error);
+
+        }
+
+        
+        document.cookie = `accountID=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+        document.cookie = `sessionToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+        document.cookie = `sessionID=}; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+        setSessionToken(null);
+        setAccountID(null);
+        setSessionID(null);
+        setIsSigningOut(false);
+
+      }
+
+    })();
+
+  }, [accountID, sessionID, sessionToken, isSigningOut]);
 
   return (
     <div
@@ -70,16 +123,28 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem>
         {
           sessionToken ? (
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    <Avatar>
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>U</AvatarFallback>
+                    </Avatar>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <NavigationMenuLink onClick={() => setIsSigningOut(true)}>Sign out</NavigationMenuLink>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            
           ) : (
             <AlertDialog open={isAuthenticating}>
               <AlertDialogTrigger onClick={() => setIsAuthenticating(true)}>Sign in</AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Register an account on Swiftplay</AlertDialogTitle>
+                  <AlertDialogTitle>{authenticatorMode === "register" ? "Register an account on " : "Welcome back to "} Swiftplay</AlertDialogTitle>
                   <AlertDialogDescription>
                     Submit your best runs and compete with others
                   </AlertDialogDescription>
