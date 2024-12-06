@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HoveredLink, Menu, MenuItem } from "../ui/navbar-menu";
 import { cn } from "~/lib/utils";
 import {
@@ -11,6 +11,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import Authenticator from "../authenticator";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
 
 export default function NavbarDemo() {
   return (
@@ -20,15 +22,31 @@ export default function NavbarDemo() {
   );
 }
 
+function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  return parts.length === 2 ? parts.pop()?.split(';').shift() ?? null : null;
+}
+
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
   const [authenticatorMode, setAuthenticatorMode] = useState<"signin" | "register">("signin");
+  const [sessionToken, setSessionToken] = useState<string | null>(getCookie("sessionToken"));
+  const [accountID, setAccountID] = useState<string | null>(getCookie("accountID"));
+
+  useEffect(() => {
+
+    setSessionToken(getCookie("sessionToken"));
+    setAccountID(getCookie("accountID"));
+
+  }, [isAuthenticating]);
+
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
     >
-      <Menu setActive={setActive}>
+      <Menu setActive={setActive} style={{alignItems: "center"}}>
         <MenuItem setActive={setActive} active={active} item="Games">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/">Web Development</HoveredLink>
@@ -50,18 +68,27 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/account">Account</HoveredLink>
           </div>
         </MenuItem>
-        <AlertDialog open={isAuthenticating}>
-          <AlertDialogTrigger onClick={() => setIsAuthenticating(true)}>Sign in</AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Register an account on Swiftplay</AlertDialogTitle>
-              <AlertDialogDescription>
-                Submit your best runs and compete with others
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <Authenticator onClose={() => setIsAuthenticating(false)} onModeChange={(mode) => setAuthenticatorMode(mode)} mode={authenticatorMode} />
-          </AlertDialogContent>
-        </AlertDialog>
+        {
+          sessionToken ? (
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>U</AvatarFallback>
+            </Avatar>
+          ) : (
+            <AlertDialog open={isAuthenticating}>
+              <AlertDialogTrigger onClick={() => setIsAuthenticating(true)}>Sign in</AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Register an account on Swiftplay</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Submit your best runs and compete with others
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <Authenticator onClose={() => setIsAuthenticating(false)} onModeChange={(mode) => setAuthenticatorMode(mode)} mode={authenticatorMode} />
+              </AlertDialogContent>
+            </AlertDialog>
+          )
+        }
       </Menu>
     </div>
   );
