@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
+import { HoveredLink, Menu, MenuItem } from "../ui/navbar-menu";
 import { cn } from "~/lib/utils";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -25,6 +22,7 @@ export default function NavbarDemo() {
 
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
@@ -51,8 +49,8 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/account">Account</HoveredLink>
           </div>
         </MenuItem>
-        <AlertDialog>
-          <AlertDialogTrigger>Sign in</AlertDialogTrigger>
+        <AlertDialog open={isAuthenticating}>
+          <AlertDialogTrigger onClick={() => setIsAuthenticating(true)}>Sign in</AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Register an account on Swiftplay</AlertDialogTitle>
@@ -60,7 +58,7 @@ function Navbar({ className }: { className?: string }) {
                 Submit your best runs and compete with others
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <Authenticator />
+            <Authenticator onClose={() => setIsAuthenticating(false)} />
           </AlertDialogContent>
         </AlertDialog>
       </Menu>

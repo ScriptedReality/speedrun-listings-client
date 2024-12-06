@@ -12,7 +12,7 @@ const formSchema = z.object({
   emailAddress: z.string().email(),
 })
 
-function Authenticator() {
+function Authenticator({onClose}: {onClose: () => void}) {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -27,10 +27,12 @@ function Authenticator() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
+    setIsSubmitting(true);
+
     try {
 
       // Try to create the account.
-      const response = await fetch("https://speedrun-listings-server.onrender.com/accounts", {
+      const accountCreationResponse = await fetch("https://speedrun-listings-server.onrender.com/accounts", {
         headers: {
           "Content-Type": "application/json"
         },
@@ -42,13 +44,15 @@ function Authenticator() {
         })
       });
 
-      const responseJSON = await response.json();
+      const accountCreationResponseJSON = await accountCreationResponse.json();
 
-      if (!response.ok) {
+      if (!accountCreationResponse.ok) {
 
-        throw new Error(responseJSON.message ?? "Unknown error.");
+        throw new Error(accountCreationResponseJSON.message ?? "Unknown error.");
 
       }
+
+      onClose();
 
     } catch (err) {
 
