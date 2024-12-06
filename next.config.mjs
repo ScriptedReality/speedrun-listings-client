@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["assets.aceternity.com", "aceternity.com"],
-    unoptimized: true
+    domains: [
+      "api.microlink.io", // Microlink Image Preview
+    ],
+    unoptimized: true,
   },
-  output: "export"
+  output: "export",
 };
 
 export default nextConfig;
