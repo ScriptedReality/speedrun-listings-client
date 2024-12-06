@@ -29,7 +29,7 @@ export const HeroHighlight = ({
   return (
     <div
       className={cn(
-        "relative h-[40rem] flex items-center bg-white dark:bg-black justify-center w-full group",
+        "relative h-[40rem] flex items-center justify-center w-full group",
         containerClassName
       )}
       onMouseMove={handleMouseMove}
@@ -76,8 +76,8 @@ export const Highlight = ({
         backgroundSize: "100% 100%",
       }}
       transition={{
-        duration: 2,
-        ease: "linear",
+        duration: 1,
+        ease: "easeInOut",
         delay: 0.5,
       }}
       style={{

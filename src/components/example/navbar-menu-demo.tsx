@@ -9,11 +9,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 import Authenticator from "../authenticator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "../ui/navigation-menu";
+import { Link } from "react-router-dom";
 
 export default function NavbarDemo() {
   return (
@@ -26,61 +34,58 @@ export default function NavbarDemo() {
 function getCookie(name: string) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  return parts.length === 2 ? parts.pop()?.split(';').shift() ?? null : null;
+  return parts.length === 2 ? parts.pop()?.split(";").shift() ?? null : null;
 }
 
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
-  const [authenticatorMode, setAuthenticatorMode] = useState<"signin" | "register">("signin");
-  const [sessionToken, setSessionToken] = useState<string | null>(getCookie("sessionToken"));
-  const [accountID, setAccountID] = useState<string | null>(getCookie("accountID"));
-  const [sessionID, setSessionID] = useState<string | null>(getCookie("sessionID"));
+  const [authenticatorMode, setAuthenticatorMode] = useState<
+    "signin" | "register"
+  >("signin");
+  const [sessionToken, setSessionToken] = useState<string | null>(
+    getCookie("sessionToken")
+  );
+  const [accountID, setAccountID] = useState<string | null>(
+    getCookie("accountID")
+  );
+  const [sessionID, setSessionID] = useState<string | null>(
+    getCookie("sessionID")
+  );
 
   useEffect(() => {
-
     setSessionToken(getCookie("sessionToken"));
     setAccountID(getCookie("accountID"));
     setSessionID(getCookie("sessionID"));
-
   }, [isAuthenticating]);
 
   const [isSigningOut, setIsSigningOut] = useState<boolean>(false);
   useEffect(() => {
-
     (async () => {
-
       if (isSigningOut) {
-
         try {
-
           if (sessionID && sessionToken && accountID) {
-
-            const response = await fetch(`https://speedrun-listings-server.onrender.com/account/sessions/${sessionID}`, {
-              headers: {
-                "Content-Type": "application/json",
-                "token": sessionToken,
-                "account-id": accountID
-              },
-              method: "DELETE",
-            });
+            const response = await fetch(
+              `https://speedrun-listings-server.onrender.com/account/sessions/${sessionID}`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  token: sessionToken,
+                  "account-id": accountID,
+                },
+                method: "DELETE",
+              }
+            );
 
             if (!response.ok) {
-
               const responseJSON = await response.json();
               throw new Error(responseJSON.message ?? "Unknown error.");
-
             }
-
           }
-
         } catch (error: unknown) {
-
           alert(error);
-
         }
 
-        
         document.cookie = `accountID=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC`;
         document.cookie = `sessionToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC`;
         document.cookie = `sessionID=}; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC`;
@@ -88,24 +93,20 @@ function Navbar({ className }: { className?: string }) {
         setAccountID(null);
         setSessionID(null);
         setIsSigningOut(false);
-
       }
-
     })();
-
   }, [accountID, sessionID, sessionToken, isSigningOut]);
 
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
     >
-      <Menu setActive={setActive} style={{alignItems: "center"}}>
-        <MenuItem setActive={setActive} active={active} item="Games">
+      <Menu setActive={setActive} style={{ alignItems: "center" }}>
+        <MenuItem setActive={setActive} active={active} item="Swiftplay">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/">Web Development</HoveredLink>
-            <HoveredLink href="/">Backend API</HoveredLink>
-            <HoveredLink href="/">Game Logic</HoveredLink>
-            <HoveredLink href="/">Game Design</HoveredLink>
+            <HoveredLink href="/">Home</HoveredLink>
+            <HoveredLink href="/about">About Us</HoveredLink>
+            <HoveredLink href="/careers">Careers</HoveredLink>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Players">
@@ -116,44 +117,31 @@ function Navbar({ className }: { className?: string }) {
         <MenuItem setActive={setActive} active={active} item="Speedruns">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/leaderboard">Leaderboard</HoveredLink>
-            <HoveredLink href="/individual">Individual</HoveredLink>
-            <HoveredLink href="/friends">Friends</HoveredLink>
+            <HoveredLink href="/account">Personal</HoveredLink>
             <HoveredLink href="/account">Account</HoveredLink>
           </div>
         </MenuItem>
-        {
-          sessionToken ? (
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>U</AvatarFallback>
-                    </Avatar>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <NavigationMenuLink onClick={() => setIsSigningOut(true)}>Sign out</NavigationMenuLink>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-            
-          ) : (
-            <AlertDialog open={isAuthenticating}>
-              <AlertDialogTrigger onClick={() => setIsAuthenticating(true)}>Sign in</AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>{authenticatorMode === "register" ? "Register an account on " : "Welcome back to "} Swiftplay</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Submit your best runs and compete with others
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <Authenticator onClose={() => setIsAuthenticating(false)} onModeChange={(mode) => setAuthenticatorMode(mode)} mode={authenticatorMode} />
-              </AlertDialogContent>
-            </AlertDialog>
-          )
-        }
+        {sessionToken ? (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>U</AvatarFallback>
+                  </Avatar>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuLink onClick={() => setIsSigningOut(true)}>
+                    Sign out
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        ) : (
+          <HoveredLink href="/auth">Sign in</HoveredLink>
+        )}
       </Menu>
     </div>
   );

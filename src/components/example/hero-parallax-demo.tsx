@@ -8,96 +8,81 @@ export default function HeroParallaxDemo() {
 // eslint-disable-next-line react-refresh/only-export-components
 export const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
+    title: "Getting Over It",
+    link: "https://youtu.be/dGU5_UUalPA?si=fpNR19XfYpRZnqrW",
+    thumbnail: "https://img.youtube.com/vi/dGU5_UUalPA/hqdefault.jpg",
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+    title: "Cookie Clicker",
+    link: "https://youtu.be/J7bnc433VoA?si=sc4r4Gg5TpUuOHCU",
+    thumbnail: "https://img.youtube.com/vi/J7bnc433VoA/hqdefault.jpg",
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/rogue.png",
+    title: "Super Mario 64",
+    link: "https://youtu.be/7N_YeVbF1mI?si=CKvI5CJOj7_q2pJc",
+    thumbnail: "https://img.youtube.com/vi/7N_YeVbF1mI/hqdefault.jpg",
   },
 
   {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editorially.png",
+    title: "Luigi's Mansion",
+    link: "https://youtu.be/CNunrYUgXIA?si=3yQkiW5aFTiW5vR4",
+    thumbnail: "https://img.youtube.com/vi/CNunrYUgXIA/hqdefault.jpg",
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editrix.png",
+    title: "Raft",
+    link: "https://youtu.be/wHoN1KIlPXE?si=7FtElaggZwyGXDDW",
+    thumbnail: "https://img.youtube.com/vi/wHoN1KIlPXE/hqdefault.jpg",
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+    title: "Portal 2",
+    link: "https://youtu.be/ZqrmerjGZ14?si=SG5_typDv3qO21nn",
+    thumbnail: "https://img.youtube.com/vi/ZqrmerjGZ14/hqdefault.jpg",
   },
 
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+    title: "Minecraft",
+    link: "https://youtu.be/pyV68KvUwlw?si=ZPSZdEbiR6hzJKZ_",
+    thumbnail: "https://img.youtube.com/vi/pyV68KvUwlw/hqdefault.jpg",
   },
   {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
+    title: "Terraria",
+    link: "https://youtu.be/ScNqdGtAeLY?si=LzB3GDmbhpOCyu9B",
+    thumbnail: "https://img.youtube.com/vi/ScNqdGtAeLY/hqdefault.jpg",
   },
   {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
+    title: "Stardew Valley",
+    link: "https://youtu.be/aZz-9--YS74?si=5000000000000000",
+    thumbnail: "https://img.youtube.com/vi/aZz-9--YS74/hqdefault.jpg",
   },
   {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
+    title: "Cuphead",
+    link: "https://youtu.be/tyt3MUAWGfM?si=VqYwhYEvxGsIpRVj",
+    thumbnail: "https://img.youtube.com/vi/tyt3MUAWGfM/hqdefault.jpg",
   },
   {
-    title: "Renderwork Studio",
-    link: "https://renderwork.studio",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
+    title: "Plants vs Zombies",
+    link: "https://youtu.be/fhLK7nCWEr0?si=TKSPYTjZhFPG7ydO",
+    thumbnail: "https://img.youtube.com/vi/fhLK7nCWEr0/hqdefault.jpg",
   },
 
   {
-    title: "Creme Digital",
-    link: "https://cremedigital.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
+    title: "FNAF Security Breach",
+    link: "https://youtu.be/NtEXmQtci6Q?si=okx5uPiiiKwBl9EK",
+    thumbnail: "https://img.youtube.com/vi/NtEXmQtci6Q/hqdefault.jpg",
   },
   {
-    title: "Golden Bells Academy",
-    link: "https://goldenbellsacademy.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
+    title: "Jetpack Joyride",
+    link: "https://youtu.be/TSvvuQDBQU8?si=re5pQUh19TpZVfnh",
+    thumbnail: "https://img.youtube.com/vi/TSvvuQDBQU8/hqdefault.jpg",
   },
   {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
+    title: "Temple Run",
+    link: "https://youtu.be/HpPm7ULW7wU?si=qSAQ-KKfqJjWFWlb",
+    thumbnail: "https://img.youtube.com/vi/HpPm7ULW7wU/hqdefault.jpg",
   },
   {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
+    title: "Mario Kart",
+    link: "https://youtu.be/8IsQfmKsBcA?si=tg0lL_XcT_rwf36b",
+    thumbnail: "https://img.youtube.com/vi/8IsQfmKsBcA/hqdefault.jpg",
   },
 ];

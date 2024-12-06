@@ -19,7 +19,7 @@ import { LeaderboardScoreCard } from "~/components/ui/leaderboard-score-card";
 
 export default function LeaderboardPage() {
   return (
-    <div className="bg-black">
+    <div className=" w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] ">
       <div>
         <NavbarDemo />
       </div>
@@ -66,19 +66,19 @@ export default function LeaderboardPage() {
             name="SpeedRunner123"
             time="1:23.456"
             date="2024-03-20"
-            youtubeLink="https://youtube.com/watch?v=123"
+            youtubeLink="https://youtu.be/dQw4w9WgXcQ?si=t--0sOpuDgyKaIdM"
           />
           <LeaderboardScoreCard
             name="SwiftMaster"
             time="1:24.789"
             date="2024-03-19"
-            youtubeLink="https://youtube.com/watch?v=456"
+            youtubeLink="https://youtu.be/dQw4w9WgXcQ?si=t--0sOpuDgyKaIdM"
           />
           <LeaderboardScoreCard
             name="ProGamer"
             time="1:25.012"
             date="2024-03-18"
-            youtubeLink="https://youtube.com/watch?v=789"
+            youtubeLink="https://youtu.be/dQw4w9WgXcQ?si=t--0sOpuDgyKaIdM"
           />
         </div>
       </div>
