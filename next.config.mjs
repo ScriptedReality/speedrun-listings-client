@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     domains: ["assets.aceternity.com", "aceternity.com"],
   },
+  output: "export"
 };
 
 export default nextConfig;
