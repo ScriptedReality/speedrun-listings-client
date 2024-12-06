@@ -2,6 +2,18 @@
 import React, { useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "~/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import Authenticator from "../authenticator";
 
 export default function NavbarDemo() {
   return (
@@ -18,7 +30,7 @@ function Navbar({ className }: { className?: string }) {
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
     >
       <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Code">
+        <MenuItem setActive={setActive} active={active} item="Games">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/">Web Development</HoveredLink>
             <HoveredLink href="/">Backend API</HoveredLink>
@@ -26,32 +38,9 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/">Game Design</HoveredLink>
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Products">
+        <MenuItem setActive={setActive} active={active} item="Players">
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
-              title="Algochurn"
-              href="https://algochurn.com"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Prepare for tech interviews like never before."
-            />
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
-            />
-            <ProductItem
-              title="Moonbeam"
-              href="https://gomoonbeam.com"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="Never write from scratch again. Go from idea to blog in minutes."
-            />
-            <ProductItem
-              title="Rogue"
-              href="https://userogue.com"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
-              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
-            />
+            <HoveredLink href="/leaderboard">All players</HoveredLink>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Speedruns">
@@ -62,6 +51,18 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/account">Account</HoveredLink>
           </div>
         </MenuItem>
+        <AlertDialog>
+          <AlertDialogTrigger>Sign in</AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Register an account on Swiftplay</AlertDialogTitle>
+              <AlertDialogDescription>
+                Submit your best runs and compete with others
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <Authenticator />
+          </AlertDialogContent>
+        </AlertDialog>
       </Menu>
     </div>
   );
