@@ -23,6 +23,7 @@ export default function NavbarDemo() {
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
+  const [authenticatorMode, setAuthenticatorMode] = useState<"signin" | "register">("signin");
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
@@ -58,7 +59,7 @@ function Navbar({ className }: { className?: string }) {
                 Submit your best runs and compete with others
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <Authenticator onClose={() => setIsAuthenticating(false)} />
+            <Authenticator onClose={() => setIsAuthenticating(false)} onModeChange={(mode) => setAuthenticatorMode(mode)} mode={authenticatorMode} />
           </AlertDialogContent>
         </AlertDialog>
       </Menu>
